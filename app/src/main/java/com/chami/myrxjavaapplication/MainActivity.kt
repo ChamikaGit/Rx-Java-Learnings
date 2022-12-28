@@ -33,10 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         myObservable = Observable.just(name)
-        //IO Scheduler()
-//        myObservable.subscribeOn(Schedulers.io())
-//        //Android Main thread or UI thread
-//        myObservable.observeOn(AndroidSchedulers.mainThread())
 
         myDisposableObserver1 = object : DisposableObserver<String>() {
             override fun onNext(t: String) {
@@ -54,17 +50,10 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-//        myObservable.subscribe(myDisposableObserver1)
-//        compositeDisposable.add(myDisposableObserver1)
-
-        compositeDisposable.add(
-            myObservable.subscribeOn(Schedulers.io())
+        compositeDisposable.add(myObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(myDisposableObserver1)
         )
-
-
-
 
         myDisposableObserver2 = object : DisposableObserver<String>() {
             override fun onNext(t: String) {
@@ -81,9 +70,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-//        myObservable.subscribe(myDisposableObserver2)
-//        compositeDisposable.add(myDisposableObserver2)
 
         compositeDisposable.add(myObservable.subscribeWith(myDisposableObserver2))
     }
