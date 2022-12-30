@@ -6,6 +6,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chami.myrxjavaapplication.databinding.ActivityMainBinding
+import com.chami.myrxjavaapplication.rx_binding.RxBindingSampleActivity
+import com.chami.myrxjavaapplication.rx_subject.BehaviorsSubjectActivity
+import com.chami.myrxjavaapplication.rx_subject.PublishSubjectActivity
+import com.chami.myrxjavaapplication.rx_subject.ReplaySubjectActivity
+import com.chami.myrxjavaapplication.rx_subject.RxJavaSubjectsActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -50,7 +55,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        compositeDisposable.add(myObservable.subscribeOn(Schedulers.io())
+        compositeDisposable.add(
+            myObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(myDisposableObserver1)
         )
@@ -78,20 +84,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun onclickListener() {
         binding.btnSubjectsAsync.setOnClickListener {
-            startActivity(Intent(this@MainActivity,RxJavaSubjectsActivity::class.java))
+            startActivity(Intent(this@MainActivity, RxJavaSubjectsActivity::class.java))
         }
 
         binding.btnSubjectsBehavious.setOnClickListener {
-            startActivity(Intent(this@MainActivity,BehaviorsSubjectActivity::class.java))
+            startActivity(Intent(this@MainActivity, BehaviorsSubjectActivity::class.java))
         }
 
         binding.btnSubjectsPublish.setOnClickListener {
-            startActivity(Intent(this@MainActivity,PublishSubjectActivity::class.java))
+            startActivity(Intent(this@MainActivity, PublishSubjectActivity::class.java))
         }
 
         binding.btnSubjectReplay.setOnClickListener {
-            startActivity(Intent(this@MainActivity,ReplaySubjectActivity::class.java))
+            startActivity(Intent(this@MainActivity, ReplaySubjectActivity::class.java))
 
+        }
+        binding.btnRxBinding.setOnClickListener {
+            startActivity(Intent(this@MainActivity, RxBindingSampleActivity::class.java))
         }
     }
 

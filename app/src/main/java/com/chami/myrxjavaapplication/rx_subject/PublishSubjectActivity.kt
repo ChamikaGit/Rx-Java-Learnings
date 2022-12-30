@@ -1,73 +1,72 @@
-package com.chami.myrxjavaapplication
+package com.chami.myrxjavaapplication.rx_subject
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.chami.myrxjavaapplication.databinding.ActivityBehaviousSubjectBinding
+import com.chami.myrxjavaapplication.MainActivity
+import com.chami.myrxjavaapplication.databinding.ActivityPublishSubjectBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.AsyncSubject
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.subjects.PublishSubject
 
-class BehaviorsSubjectActivity : AppCompatActivity() {
-    private var _binding: ActivityBehaviousSubjectBinding? = null
+class PublishSubjectActivity : AppCompatActivity() {
+    private var _binding: ActivityPublishSubjectBinding? = null
     private val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityBehaviousSubjectBinding.inflate(layoutInflater)
+        _binding = ActivityPublishSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /** Behaviors subject - emits the most recent value and all other subsequent values
+        /** Publish subject - emits all the items and other subsequent items at the time of subscription
          *
          */
-       // publishSubjectDemo1()
+        // publishSubjectDemo1()
 
-        behaviourSubjectDemo2()
+       publishSubjectDemo2()
 
 
     }
 
-    private fun behaviourSubjectDemo1() {
+    private fun publishSubjectDemo1() {
 
         val observable: Observable<String> = Observable.just("JAVA", "KOTLIN", "XML", "JSON")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-        val behaviorSubject: BehaviorSubject<String> = BehaviorSubject.create()
-        //async subject act like pipe between observer and observables
-        observable.subscribe(behaviorSubject)
+        val publishSubject: PublishSubject<String> = PublishSubject.create()
+        observable.subscribe(publishSubject)
 
-        behaviorSubject.subscribe(getFirstObserver())
-        behaviorSubject.subscribe(getSecondObserver())
-        behaviorSubject.subscribe(getThirdObserver())
+        publishSubject.subscribe(getFirstObserver())
+        publishSubject.subscribe(getSecondObserver())
+        publishSubject.subscribe(getThirdObserver())
 
     }
 
-    private fun behaviourSubjectDemo2() {
+    private fun publishSubjectDemo2() {
 
         /** Async subject - rxjava subjects can act like both observers and observables because the subject class extend from observable class and implemented
          * from observer interface
          *
          */
 
-        val behaviorSubject: BehaviorSubject<String> = BehaviorSubject.create()
+        val publishSubject: PublishSubject<String> = PublishSubject.create()
 
-        behaviorSubject.subscribe(getFirstObserver())
+        publishSubject.subscribe(getFirstObserver())
 
-        behaviorSubject.onNext("JAVA")
-        behaviorSubject.onNext("KOTLIN")
-        behaviorSubject.onNext("XML")
+        publishSubject.onNext("JAVA")
+        publishSubject.onNext("KOTLIN")
+        publishSubject.onNext("XML")
 
-        behaviorSubject.subscribe(getSecondObserver())
+        publishSubject.subscribe(getSecondObserver())
 
-        behaviorSubject.onNext("JSON")
-        behaviorSubject.onComplete()
-        behaviorSubject.subscribe(getThirdObserver())
+        publishSubject.onNext("JSON")
+        publishSubject.onComplete()
+        publishSubject.subscribe(getThirdObserver())
 
     }
 

@@ -1,8 +1,9 @@
-package com.chami.myrxjavaapplication
+package com.chami.myrxjavaapplication.rx_subject
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.chami.myrxjavaapplication.MainActivity
 import com.chami.myrxjavaapplication.databinding.ActivityReplaySubjectBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable

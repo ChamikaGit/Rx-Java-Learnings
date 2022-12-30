@@ -1,71 +1,73 @@
-package com.chami.myrxjavaapplication
+package com.chami.myrxjavaapplication.rx_subject
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.chami.myrxjavaapplication.databinding.ActivityPublishSubjectBinding
+import com.chami.myrxjavaapplication.MainActivity.Companion.TAG2
+import com.chami.myrxjavaapplication.databinding.ActivityRxJavaSubjectsBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.AsyncSubject
 
-class PublishSubjectActivity : AppCompatActivity() {
-    private var _binding: ActivityPublishSubjectBinding? = null
+class RxJavaSubjectsActivity : AppCompatActivity() {
+
+    private var _binding: ActivityRxJavaSubjectsBinding? = null
     private val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityPublishSubjectBinding.inflate(layoutInflater)
+        _binding = ActivityRxJavaSubjectsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /** Publish subject - emits all the items and other subsequent items at the time of subscription
+        /** Async subject - only emits the last value(item) of the observable
          *
          */
-        // publishSubjectDemo1()
+//        asyncSubjectDemo1()
 
-       publishSubjectDemo2()
+        asyncSubjectDemo2()
 
 
     }
 
-    private fun publishSubjectDemo1() {
+    private fun asyncSubjectDemo1() {
 
         val observable: Observable<String> = Observable.just("JAVA", "KOTLIN", "XML", "JSON")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-        val publishSubject: PublishSubject<String> = PublishSubject.create()
-        observable.subscribe(publishSubject)
+        val asyncSubject: AsyncSubject<String> = AsyncSubject.create()
+        //async subject act like pipe between observer and observables
+        observable.subscribe(asyncSubject)
 
-        publishSubject.subscribe(getFirstObserver())
-        publishSubject.subscribe(getSecondObserver())
-        publishSubject.subscribe(getThirdObserver())
+        asyncSubject.subscribe(getFirstObserver())
+        asyncSubject.subscribe(getSecondObserver())
+        asyncSubject.subscribe(getThirdObserver())
 
     }
 
-    private fun publishSubjectDemo2() {
+    private fun asyncSubjectDemo2() {
 
         /** Async subject - rxjava subjects can act like both observers and observables because the subject class extend from observable class and implemented
          * from observer interface
          *
          */
 
-        val publishSubject: PublishSubject<String> = PublishSubject.create()
+        val asyncSubject: AsyncSubject<String> = AsyncSubject.create()
 
-        publishSubject.subscribe(getFirstObserver())
+        asyncSubject.subscribe(getFirstObserver())
 
-        publishSubject.onNext("JAVA")
-        publishSubject.onNext("KOTLIN")
-        publishSubject.onNext("XML")
+        asyncSubject.onNext("JAVA")
+        asyncSubject.onNext("KOTLIN")
+        asyncSubject.onNext("XML")
 
-        publishSubject.subscribe(getSecondObserver())
+        asyncSubject.subscribe(getSecondObserver())
 
-        publishSubject.onNext("JSON")
-        publishSubject.onComplete()
-        publishSubject.subscribe(getThirdObserver())
+        asyncSubject.onNext("JSON")
+        asyncSubject.onComplete()
+        asyncSubject.subscribe(getThirdObserver())
 
     }
 
@@ -74,20 +76,20 @@ class PublishSubjectActivity : AppCompatActivity() {
 
         val observer: Observer<String> = object : Observer<String> {
             override fun onSubscribe(d: Disposable) {
-                Log.d(MainActivity.TAG2, "First Observer Subscribe")
+                Log.d(TAG2, "First Observer Subscribe")
             }
 
             override fun onNext(t: String) {
-                Log.d(MainActivity.TAG2, "First Observer received $t")
+                Log.d(TAG2, "First Observer received $t")
             }
 
             override fun onError(e: Throwable) {
-                Log.d(MainActivity.TAG2, "First Observer error")
+                Log.d(TAG2, "First Observer error")
 
             }
 
             override fun onComplete() {
-                Log.d(MainActivity.TAG2, "First Observer completed")
+                Log.d(TAG2, "First Observer completed")
 
             }
 
@@ -101,20 +103,20 @@ class PublishSubjectActivity : AppCompatActivity() {
 
         val observer: Observer<String> = object : Observer<String> {
             override fun onSubscribe(d: Disposable) {
-                Log.d(MainActivity.TAG2, "Second Observer Subscribe")
+                Log.d(TAG2, "Second Observer Subscribe")
             }
 
             override fun onNext(t: String) {
-                Log.d(MainActivity.TAG2, "Second Observer received $t")
+                Log.d(TAG2, "Second Observer received $t")
             }
 
             override fun onError(e: Throwable) {
-                Log.d(MainActivity.TAG2, "Second Observer error")
+                Log.d(TAG2, "Second Observer error")
 
             }
 
             override fun onComplete() {
-                Log.d(MainActivity.TAG2, "Second Observer completed")
+                Log.d(TAG2, "Second Observer completed")
 
             }
 
@@ -128,20 +130,20 @@ class PublishSubjectActivity : AppCompatActivity() {
 
         val observer: Observer<String> = object : Observer<String> {
             override fun onSubscribe(d: Disposable) {
-                Log.d(MainActivity.TAG2, "Third Observer Subscribe")
+                Log.d(TAG2, "Third Observer Subscribe")
             }
 
             override fun onNext(t: String) {
-                Log.d(MainActivity.TAG2, "Third Observer received $t")
+                Log.d(TAG2, "Third Observer received $t")
             }
 
             override fun onError(e: Throwable) {
-                Log.d(MainActivity.TAG2, "Third Observer error")
+                Log.d(TAG2, "Third Observer error")
 
             }
 
             override fun onComplete() {
-                Log.d(MainActivity.TAG2, "Third Observer completed")
+                Log.d(TAG2, "Third Observer completed")
 
             }
 

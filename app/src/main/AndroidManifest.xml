@@ -13,28 +13,35 @@
         android:theme="@style/Theme.MyRXJavaApplication"
         tools:targetApi="31">
         <activity
-            android:name=".ReplaySubjectActivity"
+            android:name=".rx_binding.RxBindingSampleActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PublishSubjectActivity"
+            android:name=".rx_subject.ReplaySubjectActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".BehaviorsSubjectActivity"
+            android:name=".rx_subject.PublishSubjectActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RxJavaSubjectsActivity"
+            android:name=".rx_subject.BehaviorsSubjectActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".rx_subject.RxJavaSubjectsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
