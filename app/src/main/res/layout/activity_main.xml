@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnSubjects1"
+        android:id="@+id/btnSubjectsAsync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -18,38 +18,38 @@
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <Button
-        android:id="@+id/btnSubjects2"
+        android:id="@+id/btnSubjectsBehavious"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Rx-Subjects-Behaviour"
-        app:layout_constraintEnd_toEndOf="@+id/btnSubjects1"
-        app:layout_constraintStart_toStartOf="@+id/btnSubjects1"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubjects1" />
+        app:layout_constraintEnd_toEndOf="@+id/btnSubjectsAsync"
+        app:layout_constraintStart_toStartOf="@+id/btnSubjectsAsync"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubjectsAsync" />
 
     <Button
-        android:id="@+id/btnSubjects3"
+        android:id="@+id/btnSubjectsPublish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Rx-Subjects-Publish"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnSubjects2"
+        app:layout_constraintEnd_toEndOf="@+id/btnSubjectsBehavious"
         app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="@+id/btnSubjects2"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubjects2"
+        app:layout_constraintStart_toStartOf="@+id/btnSubjectsBehavious"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubjectsBehavious"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btnSubjects"
+        android:id="@+id/btnSubjectReplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Rx-Subjects-Replay"
-        app:layout_constraintEnd_toEndOf="@+id/btnSubjects3"
+        app:layout_constraintEnd_toEndOf="@+id/btnSubjectsPublish"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnSubjects3"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubjects3" />
+        app:layout_constraintStart_toStartOf="@+id/btnSubjectsPublish"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubjectsPublish" />
 
     <TextView
         android:id="@+id/tvName"

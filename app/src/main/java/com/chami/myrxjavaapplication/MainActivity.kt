@@ -77,8 +77,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onclickListener() {
-        binding.btnSubjects.setOnClickListener {
+        binding.btnSubjectsAsync.setOnClickListener {
             startActivity(Intent(this@MainActivity,RxJavaSubjectsActivity::class.java))
+        }
+
+        binding.btnSubjectsBehavious.setOnClickListener {
+            startActivity(Intent(this@MainActivity,BehaviorsSubjectActivity::class.java))
         }
     }
 
