@@ -1,5 +1,6 @@
 package com.chami.myrxjavaapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -16,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     val binding get() = _binding!!
 
-    private val TAG = "Main"
     private val name: String = "Hello to RxJava"
     lateinit var myObservable: Observable<String>
 
@@ -36,16 +36,16 @@ class MainActivity : AppCompatActivity() {
 
         myDisposableObserver1 = object : DisposableObserver<String>() {
             override fun onNext(t: String) {
-                Log.d(TAG, "onNext() : invoked $t")
+                Log.d(Companion.TAG, "onNext() : invoked $t")
                 binding.tvName.text = t
             }
 
             override fun onError(e: Throwable) {
-                Log.d(TAG, "onError() : invoked")
+                Log.d(Companion.TAG, "onError() : invoked")
             }
 
             override fun onComplete() {
-                Log.d(TAG, "onComplete() : invoked")
+                Log.d(Companion.TAG, "onComplete() : invoked")
             }
 
         }
@@ -57,27 +57,41 @@ class MainActivity : AppCompatActivity() {
 
         myDisposableObserver2 = object : DisposableObserver<String>() {
             override fun onNext(t: String) {
-                Log.d(TAG, "onNext() : invoked $t")
+                Log.d(Companion.TAG, "onNext() : invoked $t")
                 Toast.makeText(applicationContext, t, Toast.LENGTH_SHORT).show()
             }
 
             override fun onError(e: Throwable) {
-                Log.d(TAG, "onError() : invoked")
+                Log.d(Companion.TAG, "onError() : invoked")
             }
 
             override fun onComplete() {
-                Log.d(TAG, "onComplete() : invoked")
+                Log.d(Companion.TAG, "onComplete() : invoked")
             }
 
         }
 
         compositeDisposable.add(myObservable.subscribeWith(myDisposableObserver2))
+
+        onclickListener()
+    }
+
+    private fun onclickListener() {
+        binding.btnSubjects.setOnClickListener {
+            startActivity(Intent(this@MainActivity,RxJavaSubjectsActivity::class.java))
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
         compositeDisposable.clear()
+
+    }
+
+    companion object {
+        const val TAG = "Main"
+        const val TAG2 = "Subject"
 
     }
 }
