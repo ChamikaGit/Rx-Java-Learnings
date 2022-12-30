@@ -84,6 +84,15 @@ class MainActivity : AppCompatActivity() {
         binding.btnSubjectsBehavious.setOnClickListener {
             startActivity(Intent(this@MainActivity,BehaviorsSubjectActivity::class.java))
         }
+
+        binding.btnSubjectsPublish.setOnClickListener {
+            startActivity(Intent(this@MainActivity,PublishSubjectActivity::class.java))
+        }
+
+        binding.btnSubjectReplay.setOnClickListener {
+            startActivity(Intent(this@MainActivity,ReplaySubjectActivity::class.java))
+
+        }
     }
 
     override fun onDestroy() {
