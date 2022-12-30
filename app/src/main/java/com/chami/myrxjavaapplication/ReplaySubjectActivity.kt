@@ -3,71 +3,71 @@ package com.chami.myrxjavaapplication
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.chami.myrxjavaapplication.databinding.ActivityBehaviousSubjectBinding
+import com.chami.myrxjavaapplication.databinding.ActivityReplaySubjectBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.AsyncSubject
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.subjects.ReplaySubject
 
-class BehaviorsSubjectActivity : AppCompatActivity() {
-    private var _binding: ActivityBehaviousSubjectBinding? = null
+class ReplaySubjectActivity : AppCompatActivity() {
+    private var _binding: ActivityReplaySubjectBinding? = null
     private val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityBehaviousSubjectBinding.inflate(layoutInflater)
+        _binding = ActivityReplaySubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /** Behaviors subject - emits the most recent value and all other subsequent values
+        /** replay subject - replay the data stream and it doesn't care when the subscriber subscribe.
+         *
+         * replay subject emit all the items of the observable without considering when the subscriber subscribed.
          *
          */
-       // publishSubjectDemo1()
+//         replaySubjectDemo1()
 
-        behaviourSubjectDemo2()
+        replaySubjectDemo2()
 
 
     }
 
-    private fun behaviourSubjectDemo1() {
+    private fun replaySubjectDemo1() {
 
         val observable: Observable<String> = Observable.just("JAVA", "KOTLIN", "XML", "JSON")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-        val behaviorSubject: BehaviorSubject<String> = BehaviorSubject.create()
-        //async subject act like pipe between observer and observables
-        observable.subscribe(behaviorSubject)
+        val replaySubject: ReplaySubject<String> = ReplaySubject.create()
+        observable.subscribe(replaySubject)
 
-        behaviorSubject.subscribe(getFirstObserver())
-        behaviorSubject.subscribe(getSecondObserver())
-        behaviorSubject.subscribe(getThirdObserver())
+        replaySubject.subscribe(getFirstObserver())
+        replaySubject.subscribe(getSecondObserver())
+        replaySubject.subscribe(getThirdObserver())
 
     }
 
-    private fun behaviourSubjectDemo2() {
+    private fun replaySubjectDemo2() {
 
         /** Async subject - rxjava subjects can act like both observers and observables because the subject class extend from observable class and implemented
          * from observer interface
          *
          */
 
-        val behaviorSubject: BehaviorSubject<String> = BehaviorSubject.create()
+        val replaySubject: ReplaySubject<String> = ReplaySubject.create()
 
-        behaviorSubject.subscribe(getFirstObserver())
+        replaySubject.subscribe(getFirstObserver())
 
-        behaviorSubject.onNext("JAVA")
-        behaviorSubject.onNext("KOTLIN")
-        behaviorSubject.onNext("XML")
+        replaySubject.onNext("JAVA")
+        replaySubject.onNext("KOTLIN")
+        replaySubject.onNext("XML")
 
-        behaviorSubject.subscribe(getSecondObserver())
+        replaySubject.subscribe(getSecondObserver())
 
-        behaviorSubject.onNext("JSON")
-        behaviorSubject.onComplete()
-        behaviorSubject.subscribe(getThirdObserver())
+        replaySubject.onNext("JSON")
+        replaySubject.onComplete()
+        replaySubject.subscribe(getThirdObserver())
 
     }
 
